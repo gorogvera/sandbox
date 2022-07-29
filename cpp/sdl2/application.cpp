@@ -23,6 +23,8 @@ Application::Application()
     std::cout << "SDL2 Error: " << SDL_GetError() << "\n";
     return;
   }
+
+  m_image = load_surface("stick_figure.bmp");
 }
 
 Application::~Application()
@@ -53,4 +55,13 @@ void Application::update()
 void Application::draw()
 {
   SDL_UpdateWindowSurface(m_window);
+  SDL_BlitSurface(m_image, NULL, m_window_surface, NULL);
+}
+
+SDL_Surface *load_surface(char const *path) {
+	SDL_Surface *image_surface = SDL_LoadBMP(path);
+
+	if (!image_surface) return 0;
+
+	return image_surface;
 }
