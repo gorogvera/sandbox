@@ -30,6 +30,9 @@ Application::Application()
   m_image_position.y = 0;
   m_image_position.w = 22;
   m_image_position.h = 43;
+
+  m_image_x = 0.0;
+  m_image_y = 0.0;
 }
 
 Application::~Application()
@@ -38,7 +41,7 @@ Application::~Application()
   SDL_DestroyWindow(m_window);
 }
 
-void Application::update()
+void Application::loop()
 {
   bool keep_window_open = true;
   while (keep_window_open)
@@ -53,13 +56,21 @@ void Application::update()
       }
     }
 
+    update(1.0/60.0);
     draw();
   }
+}
+
+void Application::update(double delta_time)
+{
+  m_image_x = m_image_x + (5 * delta_time);
+  m_image_position.x = m_image_x;
 }
 
 void Application::draw()
 {
   SDL_UpdateWindowSurface(m_window);
+  SDL_FillRect(m_window_surface, NULL, SDL_MapRGB(m_window_surface->format, 0, 0, 0));
   SDL_BlitSurface(m_image, NULL, m_window_surface, &m_image_position);
 }
 

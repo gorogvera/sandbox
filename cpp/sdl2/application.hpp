@@ -9,10 +9,14 @@ class Application
     Application();
     ~Application();
 
-    void update();
+    void loop();
+    void update(double);
     void draw();
 
 private:
+    double m_image_x;
+    double m_image_y;
+
     SDL_Surface	*m_image;
     SDL_Rect	m_image_position;
 
