@@ -25,6 +25,11 @@ Application::Application()
   }
 
   m_image = load_surface("stick_figure.bmp");
+
+  m_image_position.x = 0;
+  m_image_position.y = 0;
+  m_image_position.w = 22;
+  m_image_position.h = 43;
 }
 
 Application::~Application()
@@ -55,7 +60,7 @@ void Application::update()
 void Application::draw()
 {
   SDL_UpdateWindowSurface(m_window);
-  SDL_BlitSurface(m_image, NULL, m_window_surface, NULL);
+  SDL_BlitSurface(m_image, NULL, m_window_surface, &m_image_position);
 }
 
 SDL_Surface *load_surface(char const *path) {
