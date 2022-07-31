@@ -2,6 +2,7 @@
 
 #include <SDL2/SDL.h>
 #include <iostream>
+#include "stick_figure.hpp"
 
 class Application
 {
@@ -14,11 +15,7 @@ class Application
     void draw();
 
 private:
-    double m_image_x;
-    double m_image_y;
-
-    SDL_Surface	*m_image;
-    SDL_Rect	m_image_position;
+    StickFigure m_stick_figure;
 
     SDL_Window	*m_window;
     SDL_Surface *m_window_surface;
