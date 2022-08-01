@@ -1,12 +1,13 @@
 
+import java.awt.Desktop;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.*;
-import org.jsoup.nodes.Element;
 
 
 public class JsoupExample {
@@ -32,25 +33,22 @@ public class JsoupExample {
       
       Elements itemTitles = doc.select("div[class=itemTitle]");
       
-      for (Element e : itemTitles) {
- 
-    	  ArrayList<String> numbers = parcel.getParcelNumbersFromString(e.text());
-    	  
-    	  //System.out.println("Line: " + e.text());
-    	  
-    	  for (String n : numbers) {
-    		  //System.out.println("Parcel number: {" + n + "}, {" + parcel.getNumber() + "}");
-    		  
-    		  if (n.equals(parcel.getNumber())) {
-    			  System.out.println("Found parcel number: " + n);
-    		  }
-    	  }
-    	  
-      }
+      String url = parcel.getParcelUrlFromElements(itemTitles);
       
-      // TODO get link of this hrsz
+      if (url != null) {
+    	// show results in a new webpage
+    	  Desktop d = Desktop.getDesktop();
+    	  try {
+			d.browse(new URI(url));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+      } 
       
-      // TODO show results in a new webpage
       
    }
 }
