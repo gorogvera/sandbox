@@ -1,1 +1,1 @@
-php -S localhost:2222
+php -S localhost:2222 &
