@@ -16,8 +16,9 @@
 		</div>
 		<div class="inputarea">
 			<span class="desc_title">Helyrajzi szám:</span>
-			<input type="text" />
-			<button type="submit">BEOLVAS</button>
+			<input type="text" id="new_pnumber" />
+			<button type="submit" onclick="javascript:load_pnumber()">BEOLVAS</button>
+			<span id="added_pnumbers"></span>
 		</div>
 		<div class="inputarea">
 			<span class="desc_title">Email cím:</span>
@@ -26,3 +27,13 @@
 		</div>
 	</body>
 </html>
+
+<script>
+
+function load_pnumber()
+{
+	var pn = document.getElementById('new_pnumber').value;
+	document.getElementById('added_pnumbers').innerHTML = pn;
+}
+
+</script>
