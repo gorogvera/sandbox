@@ -13,12 +13,12 @@ body {
 }
 
 .description .title {
-	margin: 20px auto;
 	font-weight: bold;
 	font-size: 25px;
 	text-align: center;
 }
 
 .inputarea {
-	
+	margin: 40px auto;
+	width: 400px;
 }
