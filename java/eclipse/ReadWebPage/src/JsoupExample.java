@@ -16,6 +16,12 @@ public class JsoupExample {
 	
    public static void main(String args[]) throws IOException {
 	   
+	   // 1. napi kifuggesztesek listaba
+	   // 2. adatbazisbol kiolvasni mely hrsz-ek erdekesek szamunkra
+	   // 3. megnezni van-e talalat, talalatokat listaba
+	   // 4. talalatokhoz tartozo emai cimekre elkuldeni a kifuggesztes reszleteit
+	   // 5. mindezt contab-bal naponta lefuttatni
+	   
       final String page = "https://foldem.hu/termofold-hirdetmenyek/?type=purchase";
       
       Parcel parcel = new Parcel();
