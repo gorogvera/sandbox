@@ -19,7 +19,7 @@ public class JsoupExample {
       final String page = "https://foldem.hu/termofold-hirdetmenyek/?type=purchase";
       
       Parcel parcel = new Parcel();
-      parcel.setNumber("1907");
+      parcel.setNumber("2201");
       
       
       //Connecting to the web page
