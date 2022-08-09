@@ -9,7 +9,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class PostedParcels {
+final public class PostedParcels {
 
 	public static ArrayList<Parcel> postedParcels = new ArrayList<Parcel>();
 	
