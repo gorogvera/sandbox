@@ -15,8 +15,8 @@ public class ParcelChecker {
 		// 3. megnezni van-e talalat, talalatokat listaba
 		getPostedAndObservedParcels();
 		
-		// 4. talalatokhoz tartozo emai cimekre elkuldeni a kifuggesztes reszleteit
-		
+		// 4. talalatokhoz tartozo email cimekre elkuldeni a kifuggesztes reszleteit
+		EmailSender.sendAll(foundParcels);
 		
 		// 5. mindezt contab-bal naponta lefuttatni
 		
