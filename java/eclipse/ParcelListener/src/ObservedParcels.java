@@ -20,18 +20,20 @@ final public class ObservedParcels {
 	public static void fillObservedParcels() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/partialnumber_db","admin","password");
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/partialnumber_spring_db","admin","password");
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("select * from partial_numbers");
+			ResultSet rs = 
+					stmt.executeQuery("select partial_numbers.id,partial_number,name from partial_numbers inner join localities_hun on localities_hun.id=locality_id;");
 			
 			while (rs.next()) {
 				int parcelId = rs.getInt(1);
 				String parcelNr = rs.getString(2);
+				String locality = rs.getString(3);
 				
-				Parcel p = new Parcel(parcelNr, parcelId);
+				Parcel p = new Parcel(parcelNr, locality, parcelId);
 				observedParcels.add(p);
 				
-				System.out.println("Added observed parcel with id: " + parcelId + ", and number: " + parcelNr);
+				System.out.println("Added observed parcel:" + p);
 			}
 			conn.close();
 			

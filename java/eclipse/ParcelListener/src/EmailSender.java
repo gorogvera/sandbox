@@ -40,8 +40,8 @@ public class EmailSender {
 			Statement stmt = conn.createStatement();
 			
 			for (Parcel foundP : foundParcels) {
-				ResultSet rs = stmt.executeQuery("select email_address from email_pnumber_connections "
-						+ "left join email_addresses on email_pnumber_connections.email_id = email_addresses.email_id "
+				ResultSet rs = stmt.executeQuery("select email from user_pnumber_connections "
+						+ "left join users on email_pnumber_connections.user_id = users.id "
 						+ "where pnumber_id = "+ foundP.getParcelId() +";");
 				
 				while (rs.next()) {
