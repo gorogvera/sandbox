@@ -33,6 +33,10 @@ public class Parcel {
 		this.locality = locality;
 	}
 	
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	
 	public String getParcelNumber() {
 		return parcelNumber;
 	}

@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ParcelChecker {
 
@@ -18,26 +21,48 @@ public class ParcelChecker {
 		// 4. talalatokhoz tartozo email cimekre elkuldeni a kifuggesztes reszleteit
 		EmailSender.sendAll(foundParcels);		
 	}
-	
+		
 	private static void getPostedAndObservedParcels() {
 		
-		// TODO : ezt a keresest hatekonyabba tenni
+		Map<String, List<Parcel>> postedMap = new HashMap<>();
+		
 		for (Parcel postedP : PostedParcels.postedParcels) {
-			
-			for (Parcel observedP : ObservedParcels.observedParcels) {
-				
-				if (postedP.getParcelNumber().equals(observedP.getParcelNumber())) {
-					
-					Parcel commonP = new Parcel(postedP.getParcelNumber(), postedP.getParcelUrl(), observedP.getParcelId());
-					
-					foundParcels.add(commonP);
-					
-					System.out.println("Found posted and observed parcel: " + commonP.getParcelId() + ", " + commonP.getParcelNumber());
-				}
-				
+			String pn = postedP.getParcelNumber();
+			List<Parcel> lp = postedMap.get(pn);
+			if (lp==null) {
+				lp = new ArrayList<>();
 			}
-			
+			lp.add(postedP);
+			postedMap.put(pn, lp);
 		}
+		
+		for (Parcel observedP : ObservedParcels.observedParcels) {
+			String observedLocality = observedP.getLocality().toUpperCase();
+			String parcelNr = observedP.getParcelNumber();
+			List<Parcel> parcels = postedMap.get(parcelNr);
+			if (parcels != null) {
+				for (Parcel p : parcels) {
+					String postedLocality = p.getLocality();
+					Parcel commonP = null;
+					if (postedLocality == null || postedLocality.length() == 0) {
+						commonP = new Parcel(parcelNr, "???", p.getParcelUrl(), observedP.getParcelId());
+					}
+					else {
+						postedLocality = postedLocality.toUpperCase();
+						if (postedLocality.equals(observedLocality) || 
+								postedLocality.contains(observedLocality)) {
+							commonP = new Parcel(parcelNr, postedLocality, p.getParcelUrl(), observedP.getParcelId());
+						}
+					}
+					
+					if (commonP != null) {
+						foundParcels.add(commonP);
+						System.out.println("Found posted and observed parcel: " + commonP);
+					}
+				}
+			}
+		}
+		
 	}
-
+ 
 }

@@ -36,12 +36,12 @@ public class EmailSender {
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/partialnumber_db","admin","password");
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/partialnumber_spring_db","admin","password");
 			Statement stmt = conn.createStatement();
 			
 			for (Parcel foundP : foundParcels) {
 				ResultSet rs = stmt.executeQuery("select email from user_pnumber_connections "
-						+ "left join users on email_pnumber_connections.user_id = users.id "
+						+ "left join users on user_pnumber_connections.user_id = users.id "
 						+ "where pnumber_id = "+ foundP.getParcelId() +";");
 				
 				while (rs.next()) {

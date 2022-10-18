@@ -13,19 +13,30 @@ final public class PostedParcels {
 
 	public static ArrayList<Parcel> postedParcels = new ArrayList<Parcel>();
 	
-	private final static String PARCEL_NUMBER_PATTERN = "\\d+[/]?\\d+";
+	private final static String PARCEL_NUMBER_PATTERN = "\\d+(\\/\\d+)?";
 	private static Pattern pattern = Pattern.compile(PARCEL_NUMBER_PATTERN);
+	
+	// TODO maybe this locality regexp can be better
+	private final static String LOCALITY_PATTERN = "- (.*?) hrsz";
+	private static Pattern locality_pattern = Pattern.compile(LOCALITY_PATTERN);
 	
     final static String page = "https://foldem.hu/termofold-hirdetmenyek/?type=purchase";
 	
     
-	private static ArrayList<String> getParcelNumbersFromString(String txt) {
-		ArrayList<String> results = new ArrayList<String>();
+	
+	private static ArrayList<Parcel> getParcelsFromString(String txt) {
+		ArrayList<Parcel> results = new ArrayList<Parcel>();
 		
 		Matcher m = pattern.matcher(txt);
+		Matcher l = locality_pattern.matcher(txt);
+		
+		String loc = new String();
 		
 		while (m.find()) {
-			results.add(m.group());
+			if (l.find()) loc = l.group(1);
+			Parcel p = new Parcel(m.group(),loc);
+			results.add(p);
+			System.out.println("getParcelsFromString: " + p);
 		}
 		
 		return results;
@@ -49,17 +60,17 @@ final public class PostedParcels {
 	      
 	    	  for (Element e : itemTitles) {
 	    	  
-	    		  ArrayList<String> numbers = getParcelNumbersFromString(e.text());
+	    		  ArrayList<Parcel> parcels = getParcelsFromString(e.text());
 	    	  
 	    		  //System.out.println("Line: " + e.text());
 	    	  
-	    		  for (String n : numbers) {
+	    		  for (Parcel p : parcels) {
 	    		  
 	    			  String u = e.getElementsByTag("a").first().attr("href");
 	    		  
-	    			  Parcel p = new Parcel(n, u);
+	    			  p.setUrl(u);
 	    			  
-	    			  System.out.println("Add parcel: " + n + ", with url: " + u);
+	    			  System.out.println("Add parcel: " + p + ", with url: " + u);
 	    			  postedParcels.add(p);
 	    		  
 	    		  }
