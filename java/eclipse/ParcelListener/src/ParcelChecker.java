@@ -9,6 +9,9 @@ public class ParcelChecker {
 	
 	public static void main(String[] args) {
 
+		// 0. do some database maintanance and clearing
+		Maintenance.clearDatabase();
+		
 		// 1. napi kifuggesztesek listaba
 		PostedParcels.fillPostedParcels();
 		

@@ -1,5 +1,3 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -35,9 +33,7 @@ public class EmailSender {
 	      });
 		
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/partialnumber_spring_db","admin","password");
-			Statement stmt = conn.createStatement();
+			Statement stmt = DatabaseHelper.getStatement();
 			
 			for (Parcel foundP : foundParcels) {
 				ResultSet rs = stmt.executeQuery("select email from user_pnumber_connections "
@@ -53,9 +49,12 @@ public class EmailSender {
 				}
 			}
 			
-			conn.close();
 		} catch (Exception e) {
 			System.out.println(e);
+			// TODO some logs
+			// TODO make more specific exceptions with logs
+		} finally {
+			DatabaseHelper.close();
 		}
 	}
 	

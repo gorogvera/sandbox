@@ -19,9 +19,7 @@ final public class ObservedParcels {
 	
 	public static void fillObservedParcels() {
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/partialnumber_spring_db","admin","password");
-			Statement stmt = conn.createStatement();
+			Statement stmt = DatabaseHelper.getStatement();
 			ResultSet rs = 
 					stmt.executeQuery("select partial_numbers.id,partial_number,name from partial_numbers inner join localities_hun on localities_hun.id=locality_id;");
 			
@@ -35,10 +33,13 @@ final public class ObservedParcels {
 				
 				System.out.println("Added observed parcel:" + p);
 			}
-			conn.close();
 			
 		} catch (Exception e) {
 			System.out.println(e);
+			// TODO some logs
+			// TODO make more specific exceptions with logs
+		} finally {
+			DatabaseHelper.close();
 		}
 	}
 }
