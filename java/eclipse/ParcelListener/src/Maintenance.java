@@ -24,7 +24,7 @@ public class Maintenance {
 	
 	private static void removePartialNumberWhichNotConnectedToUser() throws SQLException, ClassNotFoundException {
 		Statement smt = DatabaseHelper.getStatement();
-		ResultSet res = smt.executeQuery("select partial_numbers.id from partial_numbers left join user_pnumber_connections on partial_numbers.id = user_pnumber_connections.pnumber_id where pnumber_id IS NULL;");
+		ResultSet res = smt.executeQuery("select * from partial_numbers_not_connected_to_user;");
 		
 		while (res.next()) {
 			Integer pNumberId = res.getInt(1);

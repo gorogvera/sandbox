@@ -21,7 +21,7 @@ final public class ObservedParcels {
 		try {
 			Statement stmt = DatabaseHelper.getStatement();
 			ResultSet rs = 
-					stmt.executeQuery("select partial_numbers.id,partial_number,name from partial_numbers inner join localities_hun on localities_hun.id=locality_id;");
+					stmt.executeQuery("select * from partial_numbers_with_locality_names;");
 			
 			while (rs.next()) {
 				int parcelId = rs.getInt(1);

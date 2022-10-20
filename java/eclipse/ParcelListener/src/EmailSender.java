@@ -36,8 +36,8 @@ public class EmailSender {
 			Statement stmt = DatabaseHelper.getStatement();
 			
 			for (Parcel foundP : foundParcels) {
-				ResultSet rs = stmt.executeQuery("select email from user_pnumber_connections "
-						+ "left join users on user_pnumber_connections.user_id = users.id "
+				ResultSet rs = stmt.executeQuery(
+						"select email,pnumber_id from user_emails_with_pnumber_connections "
 						+ "where pnumber_id = "+ foundP.getParcelId() +";");
 				
 				while (rs.next()) {
