@@ -7,7 +7,10 @@ public class Maintenance {
 	public static void clearDatabase() {
 		try {
 			// Clear tokens with expired dates
-			// TODO
+			removeExpiredTokens();
+			
+			// Clear not enabled users
+			clearNotEnabledUsers();
 			
 			// Remove partial numbers which not connected to any user
 			removePartialNumberWhichNotConnectedToUser();
@@ -30,4 +33,15 @@ public class Maintenance {
 			System.out.println("Parcel is deleted with id: "+pNumberId);
 		}
 	}
+	
+	private static void removeExpiredTokens() throws SQLException, ClassNotFoundException {
+		Statement smt = DatabaseHelper.getStatement();
+		smt.execute("delete from password_reset_token where expiry_date < NOW()");
+	}
+	
+	private static void clearNotEnabledUsers() throws SQLException, ClassNotFoundException {
+		Statement smt = DatabaseHelper.getStatement();
+		smt.execute("delete from users where enabled=0");
+	}
+	
 }
