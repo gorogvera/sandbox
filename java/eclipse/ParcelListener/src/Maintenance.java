@@ -15,6 +15,8 @@ public class Maintenance {
 			// Remove partial numbers which not connected to any user
 			removePartialNumberWhichNotConnectedToUser();
 			
+			// TODO remove old entries in log_daily_run table
+			
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {

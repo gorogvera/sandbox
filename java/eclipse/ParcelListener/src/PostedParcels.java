@@ -25,7 +25,7 @@ final public class PostedParcels {
     
 	
 	private static ArrayList<Parcel> getParcelsFromString(String txt) {
-		ArrayList<Parcel> results = new ArrayList<Parcel>();
+		var results = new ArrayList<Parcel>();
 		
 		Matcher m = pattern.matcher(txt);
 		Matcher l = locality_pattern.matcher(txt);

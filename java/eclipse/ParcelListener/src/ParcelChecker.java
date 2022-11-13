@@ -1,3 +1,5 @@
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,7 +10,12 @@ public class ParcelChecker {
 	private static ArrayList<Parcel> foundParcels = new ArrayList<Parcel>();
 	
 	public static void main(String[] args) {
-
+		
+		// check daily run
+		if (checkDailyRun()) return;
+		
+		// logging - sysout goes to terminal mail :)
+		
 		// 0. do some database maintanance and clearing
 		Maintenance.clearDatabase();
 		
@@ -25,13 +32,37 @@ public class ParcelChecker {
 		EmailSender.sendAll(foundParcels);		
 	}
 		
+	private static boolean checkDailyRun() {
+		
+		try {
+			Statement stmt = DatabaseHelper.getStatement();
+			ResultSet rs = 
+					stmt.executeQuery("select * from log_daily_run where running_date=current_date");
+			
+			if (rs.next()) {
+				System.out.println("ParcelChecker had run today.");
+				return true;
+			}
+			
+			stmt.executeUpdate("insert into log_daily_run values (default);");
+			
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			DatabaseHelper.close();
+		}
+		
+		System.out.println("First running ParcelChecker today.");
+		return false;
+	}
+	
 	private static void getPostedAndObservedParcels() {
 		
 		Map<String, List<Parcel>> postedMap = new HashMap<>();
 		
 		for (Parcel postedP : PostedParcels.postedParcels) {
 			String pn = postedP.getParcelNumber();
-			List<Parcel> lp = postedMap.get(pn);
+			var lp = postedMap.get(pn);
 			if (lp==null) {
 				lp = new ArrayList<>();
 			}
@@ -42,7 +73,7 @@ public class ParcelChecker {
 		for (Parcel observedP : ObservedParcels.observedParcels) {
 			String observedLocality = observedP.getLocality().toUpperCase();
 			String parcelNr = observedP.getParcelNumber();
-			List<Parcel> parcels = postedMap.get(parcelNr);
+			var parcels = postedMap.get(parcelNr);
 			if (parcels != null) {
 				for (Parcel p : parcels) {
 					String postedLocality = p.getLocality();
