@@ -1,0 +1,29 @@
+<script nonce="Y2Q4MDM3MGQtNTEyMS00ZDdhLWIxYTMtNTgyYzkxOGMzZDMw">PrimeFaces.csp.register('j_idt5:j_idt12','onclick',function(event){PrimeFaces.ab({s:"j_idt5:j_idt12",f:"j_idt5",u:"j_idt5:greeting",onco:function(xhr,status,args,data){PF('greetingDialog').show();}});return false;});</script>
+
+<button id="j_idt5:j_idt12" name="j_idt5:j_idt12" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" onclick="PrimeFaces.ab({s:&quot;j_idt5:j_idt12&quot;,f:&quot;j_idt5&quot;,u:&quot;j_idt5:greeting&quot;,onco:function(xhr,status,args,data){PF('greetingDialog').show();}});return false;" type="submit"><span class="ui-button-text ui-c">Submit</span></button><script  id="j_idt5:j_idt12_s" type="text/javascript" nonce="hellononce">$(function(){PrimeFaces.cw("CommandButton","widget_j_idt5_j_idt12",{id:"j_idt5:j_idt12"});});</script>
+
+<button id="foo">
+<script nonce="...">
+document.getElementById("foo").onClick(() => {
+window.__oryWebAuthnRegistration()
+})
+</script>
+
+
+
+<button onclick="myFunction()">Click me</button>
+
+<p id="demo"></p>
+
+<script>
+function myFunction() {
+  document.getElementById("demo").innerHTML = "Hello World";
+}
+</script>
+
+
+<button id="button-88c799f9-a757-4d6d-af8a-0083a284209c">Click me</button>
+
+<script nonce="ZmEwYzI3ZTAtNmVlYS00OTViLWJmYjUtOGQ3YmY1ZDA0N2Ji">
+PrimeFaces.csp.register('button\-88c799f9\-a757\-4d6d\-af8a\-0083a284209c','onclick',function(event){myFunction()});
+</script>

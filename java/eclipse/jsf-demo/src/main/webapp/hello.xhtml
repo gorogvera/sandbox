@@ -1,0 +1,40 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+   <title>#{helloworld.message}</title>
+</head>
+<body>
+#{helloworld.message}
+
+<h1>The script element</h1>
+
+<p id="demo"></p>
+
+<script>
+document.getElementById("demo").innerHTML = "Hello JavaScript!";
+</script>
+
+
+<p id="demo2"></p>
+<p id="democsp"></p>
+<!-- 
+<button onclick="myFunction()">Click me</button>
+
+<script>
+function myFunction() {
+  document.getElementById("demo2").innerHTML = "Hello World";
+}
+</script>
+ -->
+
+<button id="buttoncsp">CSP click me</button>
+
+<script>
+document.getElementById("buttoncsp").onclick = function() {myFunction()};
+
+function myFunction() {
+  document.getElementById("democsp").innerHTML = "Hello CSP World!";
+}
+</script>
+
+</body>
+</html>
