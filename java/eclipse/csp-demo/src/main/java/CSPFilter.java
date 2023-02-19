@@ -90,7 +90,7 @@ public class CSPFilter implements Filter {
 	            	// add document.getElementById("buttoncsp").onclick = function() {myFunction()};
 	                String arr[] = functionName.split("\\(");
 	                String modifiedFunctionName = arr[0];
-	                System.out.println("Function name - first part:" + modifiedFunctionName);
+	                System.out.println("Function name" + functionName);
 	            	String rx = "function( +)"+modifiedFunctionName+"\\(";
 	            	Pattern ptrn = Pattern.compile(rx,Pattern.CASE_INSENSITIVE);
 		            Matcher mtchr = ptrn.matcher(originalContent);
@@ -107,11 +107,13 @@ public class CSPFilter implements Filter {
 		            	System.out.println("PF button id:"+buttonID);
 		            	if (mtchr.find()) {
 		            		System.out.println("found PF match:"+mtchr.group(0));
-		            		//$('#btnHello').on('click', sayHello());
-		            		//String modifiedFunction = "$('#"+buttonID+"').on('click',function(event){"+functionName+"});";
-			            	//replacement = "<script"+mtchr.group(1)+">"+modifiedFunction+"\n"+mtchr.group(2);
 		            		functionName = functionName.replaceAll("&quot;", "\"");
-		            		replacement = "<script"+mtchr.group(1)+">"+"document.getElementById(\""+buttonID+"\").onclick = function() {"+functionName+"};\n" + mtchr.group(2);
+		            		//$('#btnHello').on('click', sayHello());
+		            		//$(document.getElementById('j_idt8:beginDateTxt'))
+		            		String modifiedFunction = "$('"+buttonID+"').on('click',function(event){"+functionName+"});";
+			            	replacement = "<script"+mtchr.group(1)+">"+modifiedFunction+"\n"+mtchr.group(2);
+		            		
+		            		//replacement = "<script"+mtchr.group(1)+">"+"document.getElementById(\""+buttonID+"\").onclick = function() {"+functionName+"};\n" + mtchr.group(2);
 			            	originalContent = originalContent.replace(mtchr.group(0), replacement);
 		            	}
 		            }
